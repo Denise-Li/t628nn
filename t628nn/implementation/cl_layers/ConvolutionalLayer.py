@@ -2,7 +2,7 @@ import numpy as np
 import pyopencl as cl
 from sanity_check import convolve, my_round, check_equal, insert, to_morton_left
 from cl_operations import *
-from cl_util.tools import get_cl, create_buffer
+from cl_util.tools import get_cl, create_buffer，Timer
 
 
 class ConvolutionalLayer:
@@ -67,8 +67,10 @@ class ConvolutionalLayer:
         ze4, _, _ = zeroer(q, buff1)
         evts.append(ze4)
 
-        evt4, _, _ = self._padding_remover(q, buff2, buff1)
-        evts.append(evt4)
+        with Timer("padding2"):
+            evt4, _, _ = self._padding_remover(q, buff2, buff1)
+            evts.append(evt4)
+            cl.wait_for_events([evt4])
 
         cl.wait_for_events(evts)
         return buff1, buff2
