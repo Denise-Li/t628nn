@@ -24,8 +24,12 @@ Testing
 
 The code for the test time has been uploaded to convolutionallayer.py(it is in implementation file) 
 also can be run under vgg16 file(also in implementation file).
+
 The two lines of code that are most useful for testing time are:
+
 1.with Timer("the name which you want to split"):
+
 2.cl.wait_for_events([evt/ze])
-Place put these two lines of code on each layer for time testing and then record, statistics these will get 
+
+Write these two lines of code on each layer for time testing and then record, statistics these will get 
 the time table with each layer.
